@@ -26,12 +26,17 @@ class MultiDiscrete(gym.spaces.MultiDiscrete):
         self.high = np.array([x[1] if np.ndim(x) else x - 1
                              for x in array_of_param_array], dtype=np.int32)
         self.num_discrete_space = self.low.shape[0]
+        # Legacy attrs expected by gym wrappers
+        self.dtype = np.int64  # required by gym utils/seeding
+        # Gym expects a _shape attribute for serialization/pickling
+        self._shape = (self.num_discrete_space,)
+        self.nvec = self.high - self.low + 1
 
     def sample(self):
         """ Returns a array with one sample from each discrete action space """
         # For each row: round(random .* (max - min) + min, 0)
         random_array = np.random.rand(self.num_discrete_space)
-        return [int(x) for x in np.floor(np.multiply((self.high - self.low + 1.), random_array) + self.low)]
+        return np.floor(np.multiply((self.high - self.low + 1.), random_array) + self.low).astype(self.dtype)
 
     def contains(self, x):
         return len(x) == self.num_discrete_space and (np.array(x) >= self.low).all() and (np.array(x) <= self.high).all()
