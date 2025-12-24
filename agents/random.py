@@ -1,4 +1,3 @@
-from gym.spaces import MultiDiscrete
 
 class RandomPolicy:
     def __init__(self, action_space, num_agents):

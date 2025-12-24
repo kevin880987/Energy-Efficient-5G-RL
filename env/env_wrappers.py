@@ -3,7 +3,6 @@ Modified from OpenAI Baselines code to work with multi-agent envs
 """
 import numpy as np
 from multiprocessing import Process, Pipe
-from gym import Wrapper
 from abc import ABC, abstractmethod
 
 from .multi_agent import MultiAgentEnv

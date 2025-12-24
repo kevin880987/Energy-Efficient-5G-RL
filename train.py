@@ -5,6 +5,7 @@ import wandb
 import torch
 import socket
 import numpy as np
+import argparse
 from arguments import *
 from env import MultiCellNetEnv
 from utils import *
@@ -55,11 +56,40 @@ def make_env(args, env_args, for_eval=False):
     return ShareSubprocVecEnv([get_env_fn(i) for i in range(n_threads)])
 
 
-def main(args):
+def default_dqn_args():
+    """Return CLI-style args matching train_dqn.sh defaults."""
+    return [
+        "--algorithm_name", "dqn",
+        "--experiment_name", "check",
+        "--scenario", "RANDOM",
+        "--accelerate", "1200",
+        "--seed", "1",
+        "--n_training_threads", "2",
+        "--n_rollout_threads", "2",
+        "--num_env_steps", str(25200 * 40),
+        "--gamma", "0.99",
+        "--learning-rate", "0.0003",
+        "--user_name", "kevin880987",
+        "--log_level", "NOTICE",
+        "--log_interval", "1",
+        "--w_qos", "30",
+        "--w_xqos", "0.005",
+        "--use_wandb",
+    ]
+
+
+def main(args=None):
+    if args is None:
+        args = default_dqn_args()
     parser = get_config()
     env_parser = get_env_config()
-    args, env_args = parser.parse_known_args(args)
-    env_args, rl_args = env_parser.parse_known_args(env_args)
+
+    # Parse top-level args and keep the rest for env/rl
+    args, remainder = parser.parse_known_args(args)
+    # args.use_wandb = True
+    # args.env_name = "kevin880987-national-taiwan-university"
+    # args.user_name = "cost_constrained_altruistic_scheduling"
+    env_args, rl_args = env_parser.parse_known_args(remainder)
     
     if args.algorithm_name == "rmappo":
         assert (args.use_recurrent_policy or args.use_naive_recurrent_policy), (
@@ -162,4 +192,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()

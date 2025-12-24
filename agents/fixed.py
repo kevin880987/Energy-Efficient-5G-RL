@@ -1,5 +1,4 @@
 import numpy as np
-from gym.spaces import MultiDiscrete
 
 class AlwaysOnPolicy:
     def __init__(self, action_space, num_agents, num_ants=64):

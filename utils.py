@@ -55,10 +55,13 @@ def set_log_level(level):
         level=level)
 
 def set_log_file(log_file):
+    if log_file is None:
+        return
+    # Ensure parent directory exists before opening
+    Path(log_file).parent.mkdir(parents=True, exist_ok=True)
     open(log_file, 'w').close()
-    if log_file is not None:
-        logger.addHandler(logging.FileHandler(log_file))
-        logger.propagate = False
+    logger.addHandler(logging.FileHandler(log_file))
+    logger.propagate = False
 
 def dB2lin(dB):
     return 10 ** (dB / 10)

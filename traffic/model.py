@@ -74,9 +74,9 @@ class TrafficModel:
 
         self.densities = df / 1e6
         df = pd.concat([self.densities, self.rates], axis=1, keys=['Mb/s/km^2', 'files/s'])
-        total_df = df.groupby(level=0, axis=1).sum()
+        # This workaround solves the groupby axis deprecation future warning, while keeping multi-level column compatability.
         for k in df.columns.levels[0]:
-            df[k, 'Total'] = total_df[k]
+            df[k, 'Total'] = df[k].sum(axis=1)
         info_df = df.describe().T[['mean', 'std', 'min', 'max']].sort_index()
         info_df['peak time'] = df.idxmax(axis=0).map(lambda x: f'{x[0]}, {x[1]}')
         info_df['vale time'] = df.idxmin(axis=0).map(lambda x: f'{x[0]}, {x[1]}')
