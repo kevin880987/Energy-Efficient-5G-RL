@@ -3,6 +3,8 @@ from config import *
 from . import config
 from .channel import compute_channel_gain
 
+from config import DEBUG, TRAIN, EVAL
+
 
 class UEStatus(enum.IntEnum):
     IDLE = 0

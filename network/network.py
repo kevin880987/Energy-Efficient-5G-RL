@@ -10,6 +10,8 @@ from traffic.config import numApps, delayBudgets
 from visualize.obs import anim_rolling
 from config import *
 
+from config import DEBUG, TRAIN, EVAL
+
 
 class MultiCellNetwork:
     bss: Dict[int, BaseStation]

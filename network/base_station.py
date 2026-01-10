@@ -6,6 +6,8 @@ from traffic.config import numApps
 from config import *
 from visualize.obs import anim_rolling
     
+from config import DEBUG, TRAIN, EVAL
+
 
 class ConnectMode(enum.IntEnum):
     Disconnect = -1

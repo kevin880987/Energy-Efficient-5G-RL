@@ -7,12 +7,14 @@ from .multi_discrete import MultiDiscrete
 
 from . import config
 from utils import *
-from config import *
+# from config import *
 from network.network import MultiCellNetwork
 from network.base_station import BaseStation
 from traffic import TrafficModel
 from network import config as net_config
 from visualize import render, animate
+
+from config import DEBUG, TRAIN, EVAL
 
 
 class MultiCellNetEnv(MultiAgentEnv):

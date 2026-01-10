@@ -1,5 +1,5 @@
 import argparse
-from config import DEBUG, EVAL
+from config import DEBUG, TRAIN, EVAL
 
 
 def get_config():
