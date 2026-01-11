@@ -6,6 +6,9 @@ startTime = 0  # time in a week in seconds (peak time: 307800 = Thu 13:30)
 actionInterval = 20  # sim steps between two actions (1 env step = 20 sim steps)
 accelRate = 6000  # equivalent seconds in real time for 1 second in simulation time
 episodeTimeLen = 60 * 60 * 24 * 7  # the duration of an episode in simulation (seconds in a week)
+# episode_len = episodeTimeLen / accelRate / timeStep / actionInterval
+#            = (60*60*24*7) / 6000 / 0.001 / 20
+#            ≈ 5040 steps
 
 # traffic parameters
 trafficScenario = 'RANDOM'  # 'A', 'B', 'C'
