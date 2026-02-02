@@ -11,7 +11,7 @@ episodeTimeLen = 60 * 60 * 24 * 7  # the duration of an episode in simulation (s
 #            ≈ 5040 steps
 
 # traffic parameters
-trafficScenario = 'RANDOM'  # 'A', 'B', 'C'
+trafficScenario = 'A' # , 'RANDOM'  # 'B', 'C'
 
 # action parameters
 numAntSwitchOpts = 3
